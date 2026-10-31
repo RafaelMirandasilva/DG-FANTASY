@@ -1,0 +1,144 @@
+/* =====================================================
+   menu.css — MENU PRINCIPAL, SELEÇÃO DE PERSONAGENS E WIKI
+   ===================================================== */
+
+/* ---------- MENU PRINCIPAL ---------- */
+.menu-painel {
+  position: absolute;
+  left: 5vw;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.menu-dica {
+  color: #cfc7ff;
+  font-size: 14px;
+  text-shadow: 1px 1px 0 #000;
+  opacity: 0.85;
+}
+
+/* Personagem escolhido aparecendo no meio da floresta */
+.menu-personagem {
+  position: absolute;
+  left: 64%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+.menu-personagem img {
+  height: 190px;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.6));
+  animation: respirar 1.8s ease-in-out infinite;  /* animação de "parado" */
+}
+@keyframes respirar {
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(1.03) translateY(-2px); }
+}
+.menu-personagem span {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #fff;
+  background: rgba(10, 8, 20, 0.75);
+  padding: 4px 14px;
+  border-radius: 8px;
+  border: 2px solid var(--roxo);
+}
+
+/* ---------- SELEÇÃO DE PERSONAGENS ---------- */
+.lista-personagens {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.cartao-personagem {
+  width: 300px;
+  padding: 18px;
+  cursor: pointer;
+  transition: transform 0.12s, border-color 0.15s, box-shadow 0.15s;
+  text-align: left;
+}
+
+.cartao-personagem .topo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+.cartao-personagem img {
+  height: 96px;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 4px 4px rgba(0,0,0,0.6));
+}
+.cartao-personagem h3 {
+  letter-spacing: 2px;
+}
+.cartao-personagem .descricao { font-size: 14px; margin-bottom: 10px; line-height: 1.35; }
+.cartao-personagem .atributos { list-style: none; font-size: 13px; }
+.cartao-personagem .atributos li { padding: 3px 0; }
+.cartao-personagem .atributos b { color: #fff; }
+.cartao-personagem .selo {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  opacity: 0;
+}
+.cartao-personagem.selecionado .selo { opacity: 1; }
+
+/* ---------- WIKI ---------- */
+.painel-wiki { width: min(1100px, 94vw); }
+
+.wiki-abas {
+  display: flex;
+  justify-content: center;
+}
+.aba {
+  cursor: pointer;
+}
+
+.wiki-conteudo {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  text-align: left;
+}
+.wiki-item {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.wiki-item img { height: 84px; image-rendering: pixelated; object-fit: contain; }
+.wiki-item.carta img { height: 100px; width: 100%; border-radius: 8px; padding: 6px; }
+.wiki-item h4 { font-size: 16px; letter-spacing: 1px; text-align: center; }
+.wiki-item p { font-size: 13px; text-align: center; line-height: 1.35; }
+.wiki-item .tag {
+  font-size: 11px;
+  padding: 2px 8px;
+}
+
+/* =====================================================
+   MENUS EM PNG (kit de interface)
+   A imagem é o menu; <button class="hit"> são áreas clicáveis invisíveis.
+   ===================================================== */
+.menu-png { position: relative; display: inline-block; line-height: 0; }
+.menu-png img { display: block; image-rendering: pixelated; filter: drop-shadow(0 8px 14px rgba(0,0,0,0.8)); }
+.menu-painel .menu-png img { height: min(78vh, 620px); width: auto; }
+.hit {
+  position: absolute; background: transparent; border: 0; cursor: pointer;
+  border-radius: 8px; transition: background 0.12s, box-shadow 0.12s;
+}
+.hit:hover { background: rgba(255, 220, 120, 0.12); box-shadow: 0 0 0 2px rgba(255, 220, 120, 0.7); }

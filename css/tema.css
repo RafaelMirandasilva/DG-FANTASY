@@ -1,0 +1,262 @@
+/* =====================================================
+   tema.css — VISUAL DO KIT MEDIEVAL (DG Fantasy)
+   Só muda a aparência de Personagens e Wiki. A lógica
+   (menu.js) continua a original, com dados do dados.js.
+   ===================================================== */
+:root {
+  --cobre: #b9722f;
+  --cobre-claro: #e8a64a;
+  --marrom: #1c1410;
+  --marrom2: #2a1d14;
+  --ouro: #ffe2a0;
+  --faixa: #a3182b;
+  --faixa-escura: #5c0c18;
+}
+
+/* ---------- Moldura do painel (PNG do kit, 9-slice) ---------- */
+.painel-central {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 48px 52px 40px;
+  border-style: solid;
+  border-width: 44px;
+  border-image: url("../assets/ui/menus/moldura.png") 44 fill / 44px / 0 round;
+  image-rendering: pixelated;
+  width: min(1060px, 94vw);
+  max-height: 94vh;
+  margin: 3vh auto 0;
+}
+.painel-central > * { position: relative; }
+
+/* ---------- Faixa de título vermelha ---------- */
+.titulo-tela,
+.caixa-levelup h2,
+.caixa-fim h2 {
+  display: inline-block;
+  position: relative;
+  margin: -78px auto 22px;
+  padding: 6px 54px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: var(--ouro);
+  text-shadow: 2px 2px 0 #3a0610, 0 0 8px rgba(255, 200, 120, 0.35);
+  background: linear-gradient(180deg, #c42a40 0%, var(--faixa) 45%, var(--faixa-escura) 100%);
+  border: 3px solid var(--cobre-claro);
+  border-radius: 4px;
+  box-shadow: 0 0 0 3px #2b0a10, 0 6px 10px rgba(0, 0, 0, 0.7);
+}
+.titulo-tela::before, .titulo-tela::after,
+.caixa-levelup h2::before, .caixa-levelup h2::after,
+.caixa-fim h2::before, .caixa-fim h2::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  width: 22px;
+  height: 100%;
+  background: var(--faixa-escura);
+  border: 3px solid var(--cobre-claro);
+  z-index: -1;
+}
+.titulo-tela::before, .caixa-levelup h2::before, .caixa-fim h2::before { left: -20px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 35% 50%); }
+.titulo-tela::after, .caixa-levelup h2::after, .caixa-fim h2::after { right: -20px; clip-path: polygon(0 0, 100% 0, 65% 50%, 100% 100%, 0 100%); }
+
+/* ---------- Botão VOLTAR ---------- */
+.btn-voltar {
+  margin-top: 20px;
+  padding: 8px 38px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--ouro);
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 #000;
+  background: linear-gradient(180deg, #4a2f1b, #26180f);
+  border: 3px solid var(--cobre);
+  border-radius: 6px;
+  box-shadow: 0 0 0 2px #120b07, inset 0 0 0 2px rgba(255, 190, 100, 0.25);
+}
+.btn-voltar:hover { background: linear-gradient(180deg, #6a4527, #36230f); color: #fff; border-color: var(--cobre-claro); }
+
+/* ---------- Cartões de personagem ---------- */
+.cartao-personagem {
+  background: linear-gradient(180deg, var(--marrom2), var(--marrom));
+  border: 3px solid var(--cobre);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 2px #0e0a07, 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+.cartao-personagem:hover { border-color: var(--cobre-claro); transform: translateY(-3px); }
+.cartao-personagem.selecionado { border-color: #ffd54d; box-shadow: inset 0 0 0 2px #0e0a07, 0 0 18px rgba(255, 213, 77, 0.55); }
+.cartao-personagem h3 {
+  flex: 1;
+  text-align: center;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  color: var(--ouro);
+  padding: 4px 10px;
+  background: linear-gradient(180deg, #b52238, var(--faixa-escura));
+  border: 2px solid var(--cobre-claro);
+  text-shadow: 1px 1px 0 #000;
+}
+.cartao-personagem .descricao { color: #f1e6d0; }
+.cartao-personagem .atributos { color: #e0d2b8; }
+.cartao-personagem .atributos li { border-top: 1px dashed rgba(232, 166, 74, 0.25); }
+.cartao-personagem .selo { color: #ffd54d; }
+
+/* ---------- Abas da wiki ---------- */
+.wiki-abas { gap: 8px; margin-bottom: 16px; }
+.aba {
+  padding: 6px 20px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  font-weight: 900;
+  color: #d8c49a;
+  background: linear-gradient(180deg, #3a2615, #1f140c);
+  border: 2px solid #7a4a22;
+  border-radius: 5px;
+}
+.aba:hover { color: #fff; border-color: var(--cobre-claro); }
+.aba.ativa {
+  color: var(--ouro);
+  background: linear-gradient(180deg, #b52238, var(--faixa-escura));
+  border-color: var(--cobre-claro);
+  text-shadow: 1px 1px 0 #000;
+}
+
+/* ---------- Itens da wiki (monstros, itens, habilidades) ---------- */
+.wiki-conteudo { gap: 12px; }
+.wiki-item {
+  background: linear-gradient(180deg, var(--marrom2), var(--marrom));
+  border: 2px solid var(--cobre);
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 2px #0e0a07;
+}
+.wiki-item h4 { font-family: Georgia, "Times New Roman", serif; color: var(--ouro); }
+.wiki-item p { color: #eadfc8; }
+.wiki-item .tag { background: rgba(105, 50, 200, 0.45); border: 1px solid #9a6dff; color: #efe4ff; border-radius: 4px; }
+.wiki-item.carta img { background: rgba(0, 0, 0, 0.4); border: 1px solid #5a3a1c; }
+.wiki-item.chefe { border-color: #e0243c; box-shadow: inset 0 0 0 2px #0e0a07, 0 0 14px rgba(224, 36, 60, 0.45); }
+
+/* ---------- Barra de rolagem no tom do kit ---------- */
+::-webkit-scrollbar-thumb { background: #7a4a22; }
+
+/* ---------- Wiki: lista rola dentro do painel e o VOLTAR fica sempre visível ---------- */
+.painel-wiki {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 94vh;
+  overflow: hidden;
+}
+.painel-wiki .wiki-conteudo {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 6px;
+  grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
+}
+.painel-wiki .btn-voltar { flex-shrink: 0; margin-top: 14px; }
+.painel-wiki .titulo-tela { margin: -10px 0 14px; flex-shrink: 0; }
+.painel-wiki .wiki-abas { flex-shrink: 0; }
+.painel-wiki .wiki-conteudo { align-content: start; }
+
+
+/* =====================================================
+   NOME DO PERSONAGEM NO MENU, LEVEL UP E FIM DE JOGO
+   ===================================================== */
+
+/* ---------- Nome do personagem (menu principal) ---------- */
+.menu-personagem span {
+  padding: 5px 30px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ouro);
+  text-shadow: 2px 2px 0 #3a0610;
+  background: linear-gradient(180deg, #c42a40, var(--faixa) 45%, var(--faixa-escura));
+  border: 3px solid var(--cobre-claro);
+  border-radius: 4px;
+  box-shadow: 0 0 0 3px #2b0a10, 0 5px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* ---------- Caixas de level up e de fim de jogo (moldura do kit) ---------- */
+.sobreposicao { background: rgba(4, 3, 2, 0.8); }
+.caixa-levelup, .caixa-fim {
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  border-style: solid;
+  border-width: 40px;
+  border-image: url("../assets/ui/menus/moldura.png") 44 fill / 40px / 0 round;
+  image-rendering: pixelated;
+  padding: 34px 30px 18px;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.85));
+}
+.caixa-levelup h2, .caixa-fim h2 {
+  display: block;
+  width: fit-content;
+  margin: -62px auto 16px;
+  font-size: 30px;
+  letter-spacing: 3px;
+  color: var(--ouro);
+}
+.caixa-fim h2 { font-size: 24px; padding: 6px 40px; }
+.caixa-levelup p { color: #f1e6d0; margin: 0 0 18px; font-size: 15px; }
+.caixa-levelup h2 span { color: inherit; }
+
+/* ---------- Cartas de habilidade ---------- */
+.carta-habilidade {
+  background: linear-gradient(180deg, var(--marrom2), var(--marrom));
+  border: 3px solid var(--cobre);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 2px #0e0a07, 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+.carta-habilidade:hover {
+  border-color: #ffd54d;
+  box-shadow: inset 0 0 0 2px #0e0a07, 0 0 22px rgba(255, 213, 77, 0.6);
+}
+.carta-habilidade img { background: rgba(0, 0, 0, 0.4); border: 1px solid #5a3a1c; border-radius: 4px; }
+.carta-habilidade h4 { font-family: Georgia, "Times New Roman", serif; font-size: 16px; color: var(--ouro); }
+.carta-habilidade p { color: #eadfc8; }
+
+/* ---------- Fim de jogo: estatísticas e botões ---------- */
+.fim-estatisticas { color: #eadfc8; }
+.fim-estatisticas li { border-bottom: 1px dashed rgba(232, 166, 74, 0.25); }
+.fim-estatisticas b { color: var(--ouro); }
+.btn-acao {
+  padding: 10px 26px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: var(--ouro);
+  text-shadow: 2px 2px 0 #000;
+  background: linear-gradient(180deg, #c42a40, var(--faixa-escura));
+  border: 3px solid var(--cobre-claro);
+  border-radius: 6px;
+  box-shadow: 0 0 0 2px #120b07, inset 0 0 0 2px rgba(255, 190, 100, 0.25);
+}
+.btn-acao:active { transform: translateY(2px); box-shadow: 0 0 0 2px #120b07; }
+.btn-acao.secundario {
+  background: linear-gradient(180deg, #4a2f1b, #26180f);
+  border-color: var(--cobre);
+  box-shadow: 0 0 0 2px #120b07, inset 0 0 0 2px rgba(255, 190, 100, 0.25);
+}
+
+
+/* ---------- Botão de som (canto inferior direito) ---------- */
+.btn-som {
+  position: fixed; right: 14px; bottom: 14px; z-index: 50;
+  width: 42px; height: 42px; font-size: 20px; line-height: 1; cursor: pointer;
+  background: linear-gradient(180deg, #4a2f1b, #26180f);
+  border: 3px solid var(--cobre); border-radius: 8px;
+  box-shadow: 0 0 0 2px #120b07, inset 0 0 0 2px rgba(255, 190, 100, 0.25);
+}
+.btn-som:hover { border-color: var(--cobre-claro); filter: brightness(1.2); }
+.btn-som.mudo { opacity: 0.7; }

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DG Fantasy</title>
+
+  <!-- Folhas de estilo: cada uma cuida de uma parte visual do jogo -->
+  <link rel="stylesheet" href="css/style.css">  <!-- estilos gerais (fontes, cores, botões) -->
+  <link rel="stylesheet" href="css/menu.css">   <!-- menu principal, personagens e wiki -->
+  <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="css/tema.css">   <!-- visual do kit medieval (molduras, faixas, botões) -->   <!-- interface da partida, level up e fim de jogo -->
+</head>
+<body>
+
+  <!-- ===================================================== -->
+  <!-- TELA 1: MENU PRINCIPAL                                -->
+  <!-- A classe "tela" é usada por todas as telas. Apenas a  -->
+  <!-- tela com a classe "ativa" fica visível.               -->
+  <!-- ===================================================== -->
+  <section id="tela-menu" class="tela ativa">
+    <div class="floresta"></div>
+
+    <!-- O personagem escolhido aparece aqui, no meio da floresta -->
+    <div id="menu-personagem" class="menu-personagem">
+      <img id="menu-personagem-img" src="assets/characters/guerreiro_frente.png" alt="Personagem escolhido">
+      <span id="menu-personagem-nome">Guerreiro</span>
+    </div>
+
+    <!-- MENU EM PNG: a imagem é o menu inteiro; os botões abaixo são áreas clicáveis invisíveis -->
+    <div class="menu-painel">
+      <div class="menu-png">
+        <img src="assets/ui/menus/menu_principal.png" alt="DG Fantasy">
+        <button class="hit" id="btn-jogar"       style="left:24.35%;top:45.56%;width:51.81%;height:9.58%" aria-label="Jogar"></button>
+        <button class="hit" id="btn-personagens" style="left:24.35%;top:57.24%;width:51.81%;height:9.81%" aria-label="Personagens"></button>
+        <button class="hit" id="btn-wiki"        style="left:24.35%;top:69.16%;width:51.81%;height:9.58%" aria-label="Wiki"></button>
+        <button class="hit" id="btn-sair"        style="left:24.35%;top:80.61%;width:51.81%;height:10.05%" aria-label="Sair"></button>
+      </div>
+      <p class="menu-dica">Mova com <b>W A S D</b> — o ataque é automático</p>
+    </div>
+  </section>
+
+  <!-- ===================================================== -->
+  <!-- TELA 2: SELEÇÃO DE PERSONAGENS                        -->
+  <!-- Os cartões dos personagens são criados pelo menu.js   -->
+  <!-- ===================================================== -->
+  <section id="tela-personagens" class="tela">
+    <div class="floresta escura"></div>
+    <div class="painel-central">
+      <h2 class="titulo-tela">PERSONAGENS</h2>
+      <div id="lista-personagens" class="lista-personagens"></div>
+      <button class="btn-voltar" data-voltar>← Voltar ao menu</button>
+    </div>
+  </section>
+
+  <!-- ===================================================== -->
+  <!-- TELA 3: WIKI                                          -->
+  <!-- ===================================================== -->
+  <section id="tela-wiki" class="tela">
+    <div class="floresta escura"></div>
+    <div class="painel-central painel-wiki">
+      <h2 class="titulo-tela">WIKI</h2>
+
+      <div class="wiki-abas">
+        <button class="aba ativa" data-aba="personagens">Personagens</button>
+        <button class="aba" data-aba="monstros">Monstros</button>
+        <button class="aba" data-aba="itens">Itens</button>
+        <button class="aba" data-aba="habilidades">Habilidades</button>
+      </div>
+
+      <div id="wiki-conteudo" class="wiki-conteudo"></div>
+      <button class="btn-voltar" data-voltar>← Voltar ao menu</button>
+    </div>
+  </section>
+
+  <!-- ===================================================== -->
+  <!-- TELA 4: PARTIDA                                       -->
+  <!-- O <canvas> é a "folha de desenho" onde o jogo é       -->
+  <!-- desenhado quadro a quadro pelo JavaScript.            -->
+  <!-- ===================================================== -->
+  <section id="tela-jogo" class="tela">
+    <canvas id="canvas" width="1100" height="680"></canvas>
+
+    <!-- HUD = Heads-Up Display: as informações que ficam por cima do jogo -->
+    <div class="hud">
+      <div class="hud-esquerda">
+        <div class="hud-linha">
+          <span class="hud-rotulo">VIDA</span>
+          <div class="barra barra-vida"><div id="barra-vida-fill" class="barra-fill"></div>
+            <span id="barra-vida-texto" class="barra-texto">100 / 100</span></div>
+        </div>
+        <div class="hud-linha">
+          <span class="hud-rotulo">XP</span>
+          <div class="barra barra-xp"><div id="barra-xp-fill" class="barra-fill"></div>
+            <span id="barra-xp-texto" class="barra-texto">0 / 10</span></div>
+        </div>
+        <div class="hud-nivel">NÍVEL <span id="hud-nivel">1</span></div>
+      </div>
+
+      <div class="hud-centro">
+        <div id="hud-wave" class="hud-wave">WAVE 1</div>
+        <div id="hud-aviso" class="hud-aviso"></div>
+      </div>
+
+      <div class="hud-direita">
+        <div>⏱ <span id="hud-tempo">00:00</span></div>
+        <div>💀 <span id="hud-mortes">0</span></div>
+      </div>
+
+      <!-- Barra de vida do chefe: só aparece quando existe um chefe vivo -->
+      <div id="hud-chefe" class="hud-chefe escondido">
+        <span id="hud-chefe-nome">CHEFE</span>
+        <div class="barra barra-chefe"><div id="barra-chefe-fill" class="barra-fill"></div></div>
+      </div>
+    </div>
+
+    <!-- Tela de escolha de habilidade (aparece ao subir de nível) -->
+    <div id="tela-levelup" class="sobreposicao escondido">
+      <div class="caixa-levelup">
+        <h2>NÍVEL <span id="levelup-nivel">2</span>!</h2>
+        <p>Escolha uma melhoria</p>
+        <div id="levelup-opcoes" class="levelup-opcoes"></div>
+      </div>
+    </div>
+
+    <!-- Tela de fim de partida -->
+    <div id="tela-fim" class="sobreposicao escondido">
+      <div class="caixa-fim">
+        <h2>VOCÊ FOI DERROTADO</h2>
+        <ul class="fim-estatisticas">
+          <li>Wave alcançada: <b id="fim-wave">1</b></li>
+          <li>Nível alcançado: <b id="fim-nivel">1</b></li>
+          <li>Monstros derrotados: <b id="fim-mortes">0</b></li>
+          <li>Tempo de sobrevivência: <b id="fim-tempo">00:00</b></li>
+        </ul>
+        <div class="fim-botoes">
+          <button id="btn-jogar-novamente" class="btn-acao">Jogar novamente</button>
+          <button id="btn-voltar-menu" class="btn-acao secundario">Voltar ao menu</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Botão de som (liga/desliga música e efeitos; atalho: tecla M) -->
+  <button id="btn-som" class="btn-som" title="Som (M)" aria-label="Desligar som">🔊</button>
+
+  <!-- ===================================================== -->
+  <!-- SCRIPTS                                               -->
+  <!-- A ORDEM IMPORTA: um arquivo só pode usar o que foi    -->
+  <!-- definido nos arquivos carregados antes dele.          -->
+  <!-- ===================================================== -->
+  <script src="js/assets.js"></script>     <!-- carrega as imagens PNG -->
+  <script src="js/audio.js"></script>      <!-- efeitos sonoros e música (gerados por código) -->
+  <script src="js/dados.js"></script>      <!-- fichas de personagens e monstros -->
+  <script src="js/abilities.js"></script>  <!-- lista de habilidades -->
+  <script src="js/player.js"></script>     <!-- jogador -->
+  <script src="js/enemies.js"></script>    <!-- monstros e chefes -->
+  <script src="js/weapons.js"></script>    <!-- ataques, flechas, efeitos -->
+  <script src="js/items.js"></script>      <!-- cristais de XP e poções -->
+  <script src="js/cenario.js"></script>    <!-- decorações da arena -->
+  <script src="js/ui.js"></script>         <!-- barras, HUD, telas -->
+  <script src="js/game.js"></script>       <!-- loop principal da partida -->
+  <script src="js/menu.js"></script>       <!-- menu, personagens, wiki -->
+  <script src="js/main.js"></script>       <!-- inicialização -->
+</body>
+</html>

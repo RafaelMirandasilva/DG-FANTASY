@@ -1,0 +1,98 @@
+/* =====================================================
+   style.css — ESTILOS GERAIS
+   Regras que valem para o jogo inteiro: fonte, cores,
+   sistema de telas e botões reutilizáveis.
+   ===================================================== */
+
+/* Fonte com cara de "pixel" (fica embutida no navegador via fallback) */
+:root {
+  --fonte: "Segoe UI", "Trebuchet MS", Arial, sans-serif;
+  --roxo: #a64dff;
+  --roxo-escuro: #3b0f66;
+  --azul: #3b8cff;
+  --vermelho: #ff3b5c;
+  --verde: #4caf50;
+  --amarelo: #ffd54d;
+  --painel: rgba(10, 8, 20, 0.82);
+  --borda: rgba(255, 255, 255, 0.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;              /* a página não rola, o jogo ocupa tudo */
+  background: #0b0a14;
+  font-family: var(--fonte);
+  color: #f4f1ff;
+  letter-spacing: 0.5px;
+  user-select: none;             /* evita selecionar texto sem querer ao clicar */
+}
+
+/* ---------- SISTEMA DE TELAS ----------
+   Cada <section class="tela"> é uma tela do jogo.
+   Todas começam escondidas; só a que tiver "ativa" aparece. */
+.tela {
+  position: absolute;
+  inset: 0;                      /* ocupa a tela inteira */
+  display: none;
+}
+.tela.ativa { display: block; }
+
+/* Classe utilitária para esconder qualquer elemento */
+.escondido { display: none !important; }
+
+/* ---------- FUNDO DE FLORESTA (menu, personagens e wiki) ---------- */
+.floresta {
+  position: absolute;
+  inset: 0;
+  background: url("../assets/backgrounds/floresta_menu.jpg") center / cover no-repeat;
+  image-rendering: pixelated;    /* mantém o visual de pixel art ao ampliar */
+}
+.floresta.escura::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 3, 12, 0.72);  /* escurece a floresta para o painel ficar legível */
+}
+
+/* ---------- BOTÕES DE AÇÃO (usados no fim de jogo) ---------- */
+.btn-acao {
+  padding: 14px 28px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(180deg, #c33a55, #8a1f36);
+  border: 3px solid #ff4d6d;
+  border-radius: 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 0 4px 0 #4d0f1f, 0 0 16px rgba(255, 77, 109, 0.35);
+  transition: transform 0.08s, filter 0.15s;
+}
+.btn-acao:hover { filter: brightness(1.15); }
+.btn-acao:active { transform: translateY(3px); box-shadow: 0 1px 0 #4d0f1f; }
+.btn-acao.secundario {
+  background: linear-gradient(180deg, #5a3a9a, #2d1d55);
+  border-color: var(--roxo);
+  box-shadow: 0 4px 0 #1a0d33, 0 0 16px rgba(166, 77, 255, 0.35);
+}
+
+.btn-voltar {
+  cursor: pointer;
+}
+
+/* ---------- PAINEL CENTRAL (personagens / wiki) ---------- */
+.painel-central {
+  position: relative;
+  overflow-y: auto;
+  text-align: center;
+}
+.titulo-tela {
+  margin-bottom: 20px;
+}
+
+/* Barra de rolagem discreta */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { border-radius: 6px; }
