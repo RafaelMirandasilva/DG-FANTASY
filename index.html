@@ -2,7 +2,10 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#07120a">
   <title>DG Fantasy</title>
 
   <!-- Folhas de estilo: cada uma cuida de uma parte visual do jogo -->
@@ -37,6 +40,7 @@
         <button class="hit" id="btn-sair"        style="left:24.35%;top:80.61%;width:51.81%;height:10.05%" aria-label="Sair"></button>
       </div>
       <p class="menu-dica">Mova com <b>W A S D</b> — o ataque é automático</p>
+      <p class="menu-dica dica-celular">Arraste o dedo na tela para andar — o ataque é automático</p>
     </div>
   </section>
 
@@ -80,6 +84,9 @@
   <!-- ===================================================== -->
   <section id="tela-jogo" class="tela">
     <canvas id="canvas" width="1100" height="680"></canvas>
+
+    <!-- Joystick virtual (celular): aparece onde o dedo encostar -->
+    <div id="joystick" class="joystick"><div id="joystick-pino" class="joystick-pino"></div></div>
 
     <!-- HUD = Heads-Up Display: as informações que ficam por cima do jogo -->
     <div class="hud">
@@ -153,6 +160,7 @@
   <script src="js/audio.js"></script>      <!-- efeitos sonoros e música (gerados por código) -->
   <script src="js/dados.js"></script>      <!-- fichas de personagens e monstros -->
   <script src="js/abilities.js"></script>  <!-- lista de habilidades -->
+  <script src="js/toque.js"></script>      <!-- joystick virtual para celular -->
   <script src="js/player.js"></script>     <!-- jogador -->
   <script src="js/enemies.js"></script>    <!-- monstros e chefes -->
   <script src="js/weapons.js"></script>    <!-- ataques, flechas, efeitos -->

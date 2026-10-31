@@ -215,8 +215,10 @@ const Jogo = {
     ctx.restore();
 
     // 6) Vinheta escura nas bordas (só estética)
-    const g = ctx.createRadialGradient(CONFIG.larguraTela / 2, CONFIG.alturaTela / 2, 250,
-                                       CONFIG.larguraTela / 2, CONFIG.alturaTela / 2, 750);
+    const menor = Math.min(CONFIG.larguraTela, CONFIG.alturaTela);
+    const maior = Math.max(CONFIG.larguraTela, CONFIG.alturaTela);
+    const g = ctx.createRadialGradient(CONFIG.larguraTela / 2, CONFIG.alturaTela / 2, menor * 0.37,
+                                       CONFIG.larguraTela / 2, CONFIG.alturaTela / 2, maior * 0.68);
     g.addColorStop(0, "rgba(0,0,0,0)");
     g.addColorStop(1, "rgba(0,0,0,0.45)");
     ctx.fillStyle = g;
