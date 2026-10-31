@@ -6,6 +6,7 @@
 
 window.addEventListener("load", () => {
   UI.iniciar();                      // pega os elementos do HTML
+  Toque.iniciar();                   // joystick virtual e tela cheia no celular
   Som.iniciar();                     // prepara o áudio (só toca depois do primeiro clique)
   Assets.carregar(() => {            // carrega todos os PNG...
     Menu.iniciar();                  // ...e só então o menu começa a funcionar

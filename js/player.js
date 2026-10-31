@@ -70,12 +70,16 @@ class Jogador {
     if (Teclas["a"] || Teclas["arrowleft"])  dx -= 1;
     if (Teclas["d"] || Teclas["arrowright"]) dx += 1;
 
+    // Sem teclado? Usa o joystick do celular (toque.js)
+    if (dx === 0 && dy === 0) { dx = Toque.dx; dy = Toque.dy; }
+
     this.andando = dx !== 0 || dy !== 0;
 
     if (this.andando) {
       // Na diagonal, dx e dy valem 1 ao mesmo tempo e o personagem andaria
       // mais rápido (√2 vezes). Dividimos pelo comprimento para corrigir isso.
-      const comprimento = Math.hypot(dx, dy);
+      // (o joystick pode ficar abaixo de 1: assim dá para andar devagar)
+      const comprimento = Math.max(1, Math.hypot(dx, dy));
       dx /= comprimento;
       dy /= comprimento;
 

@@ -142,3 +142,86 @@
 .fim-estatisticas { list-style: none; font-size: 17px; color: #d5cff5; line-height: 1.9; margin-bottom: 20px; }
 .fim-estatisticas b { color: #fff; }
 .fim-botoes { display: flex; gap: 14px; justify-content: center; }
+
+/* =====================================================
+   CELULAR — joystick virtual e tela cheia
+   (a classe "celular" é colocada no <body> pelo toque.js)
+   ===================================================== */
+#tela-jogo { touch-action: none; }   /* o navegador não rola nem dá zoom durante a partida */
+
+body.celular #canvas {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  aspect-ratio: auto;
+  box-shadow: none;
+}
+
+.joystick {
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  margin: -60px 0 0 -60px;   /* centraliza no ponto do toque */
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.25);
+  border: 3px solid rgba(255, 226, 160, 0.45);
+  pointer-events: none;
+  display: none;
+  z-index: 5;
+}
+.joystick.visivel { display: block; }
+.joystick-pino {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 54px;
+  height: 54px;
+  margin: -27px 0 0 -27px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #e8a64a, #7a4a22);
+  border: 3px solid #ffe2a0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* HUD e janelas menores em telas pequenas */
+@media (max-width: 760px), (max-height: 500px) {
+  .hud-esquerda { left: max(10px, env(safe-area-inset-left)); top: max(8px, env(safe-area-inset-top)); width: 170px; }
+  .hud-linha { gap: 6px; margin-bottom: 5px; }
+  .hud-rotulo { width: 26px; font-size: 10px; }
+  .barra { height: 15px; border-width: 1px; }
+  .barra-texto { font-size: 10px; line-height: 13px; }
+  .hud-nivel { font-size: 12px; }
+  .hud-centro { top: max(8px, env(safe-area-inset-top)); }
+  .hud-wave { font-size: 18px; letter-spacing: 2px; }
+  .hud-aviso { font-size: 14px; }
+  .hud-direita { right: max(10px, env(safe-area-inset-right)); top: max(8px, env(safe-area-inset-top)); font-size: 14px; line-height: 1.4; }
+  .hud-chefe { bottom: 70px; }
+  .hud-chefe span { font-size: 12px; }
+  .barra-chefe { height: 14px; }
+
+  .sobreposicao { overflow-y: auto; align-items: flex-start; padding: 50px 8px 16px; }
+  .caixa-levelup, .caixa-fim { border-width: 24px; padding: 26px 8px 8px; max-width: 96vw; margin: auto; }
+  .caixa-levelup h2, .caixa-fim h2 { font-size: 20px; padding: 5px 24px; margin: -48px auto 10px; }
+  .caixa-fim h2 { font-size: 17px; }
+  .caixa-levelup p { margin-bottom: 10px; font-size: 13px; }
+  .levelup-opcoes { flex-wrap: wrap; gap: 8px; }
+  .carta-habilidade { width: min(150px, 28vw); min-width: 96px; padding: 6px; }
+  .carta-habilidade img { height: 70px; padding: 3px; }
+  .carta-habilidade h4 { font-size: 12px; margin-top: 4px; }
+  .carta-habilidade p { font-size: 10px; }
+  .fim-estatisticas { font-size: 14px; line-height: 1.7; margin-bottom: 12px; }
+  .fim-botoes { flex-wrap: wrap; gap: 8px; }
+  .btn-acao { padding: 10px 16px; font-size: 13px; }
+}
+/* Em pé: as cartas ficam uma embaixo da outra, deitadas */
+@media (max-width: 520px) {
+  .levelup-opcoes { flex-direction: column; align-items: stretch; }
+  .carta-habilidade { width: auto; display: grid; grid-template-columns: 70px 1fr; column-gap: 10px; text-align: left; align-items: center; }
+  .carta-habilidade img { grid-row: span 2; height: 64px; }
+  .carta-habilidade h4 { margin-top: 0; }
+}
+/* No toque não existe "hover": a carta não fica presa levantada */
+@media (hover: none) {
+  .carta-habilidade:hover, .cartao-personagem:hover { transform: none; }
+  .carta-habilidade:active { border-color: #ffd54d; }
+}

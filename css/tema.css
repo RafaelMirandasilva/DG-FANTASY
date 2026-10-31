@@ -260,3 +260,18 @@
 }
 .btn-som:hover { border-color: var(--cobre-claro); filter: brightness(1.2); }
 .btn-som.mudo { opacity: 0.7; }
+
+/* ---------- CELULAR: molduras e menu menores ---------- */
+.menu-painel .menu-png img { max-width: 90vw; height: auto; max-height: min(78vh, 620px); }
+@media (max-width: 760px), (max-height: 500px) {
+  .menu-painel .menu-png img { max-height: 68vh; }
+  .painel-central { border-width: 24px; border-image-width: 24px; padding: 30px 10px 14px; width: 96vw; max-height: 96vh; max-height: 96dvh; margin: 2vh auto 0; }
+  .painel-wiki { height: 96vh; height: 96dvh; }
+  .titulo-tela { font-size: 20px; padding: 5px 26px; margin: -50px auto 14px; }
+  .painel-wiki .titulo-tela { margin: -6px 0 10px; }
+  .wiki-abas { flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .aba { padding: 5px 10px; font-size: 12px; }
+  .btn-voltar { margin-top: 12px; padding: 8px 22px; font-size: 13px; }
+  .lista-personagens { gap: 12px; }
+  .btn-som { width: 36px; height: 36px; font-size: 16px; right: max(10px, env(safe-area-inset-right)); bottom: max(10px, env(safe-area-inset-bottom)); }
+}

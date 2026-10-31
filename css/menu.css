@@ -142,3 +142,26 @@
   border-radius: 8px; transition: background 0.12s, box-shadow 0.12s;
 }
 .hit:hover { background: rgba(255, 220, 120, 0.12); box-shadow: 0 0 0 2px rgba(255, 220, 120, 0.7); }
+
+/* ---------- CELULAR ---------- */
+.dica-celular { display: none; }
+body.celular .menu-dica { display: none; }
+body.celular .menu-dica.dica-celular { display: block; text-align: center; }
+
+@media (max-width: 760px), (max-height: 500px) {
+  .menu-personagem img { height: 110px; }
+  .menu-personagem span { font-size: 13px; padding: 3px 16px; }
+  .cartao-personagem { width: min(300px, 100%); padding: 12px; }
+  .cartao-personagem img { height: 70px; }
+  .wiki-conteudo, .painel-wiki .wiki-conteudo { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .wiki-item { padding: 8px; }
+  .wiki-item img { height: 60px; }
+  .wiki-item.carta img { height: 70px; }
+  .wiki-item h4 { font-size: 13px; }
+  .wiki-item p { font-size: 11px; }
+}
+/* Celular em pé: menu centralizado e personagem abaixo dele */
+@media (max-width: 760px) and (orientation: portrait) {
+  .menu-painel { left: 50%; top: 42%; transform: translate(-50%, -50%); }
+  .menu-personagem { left: 50%; top: auto; bottom: 2vh; transform: translateX(-50%); }
+}
